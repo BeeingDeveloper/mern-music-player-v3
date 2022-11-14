@@ -54,20 +54,22 @@ const SignIn = ({setAuth}) => {
   
 
   return (
-    <div className='absolute top-14 h-[94vh] my-auto inset-0 bg-black flex items-center justify-center overflow-hidden' >
+    <div className='relative  h-[94vh] my-auto inset-0 bg-black flex items-center justify-center overflow-hidden' >
+      {/* <div className='absolute top-14' > */}
         <video
           src={VDO}
           type="video/mp4"
           loop
           muted
           autoPlay
-          style={{ height: '150vh'}}
+          style={{ height: '150vh', position: 'absolute'}}
           // className=' w-screen h-screen object-cover'
         ></video>
-        <div className='absolute bottom-32 p-2 flex items-center justify-center gap-2 bg-slate-400 rounded-md bgs hover:bg-card  transition-all ease-in-out duration-600 shadow-xl cursor-pointer' onClick={loginWithGoogle} >
+        <div className='absolute bottom-32 p-2 flex items-center justify-center gap-2 bg-slate-400 rounded-md hover:rounded-3xl bgs hover:bg-card  transition-all ease-in-out duration-600 shadow-xl cursor-pointer' onClick={loginWithGoogle} >
           <FcGoogle />
-        <h6 className='h-6 text-white hover:text-slate-700'>Sign in with Google</h6>
-      </div>
+          <h6 className='h-6 text-white hover:text-slate-700'>Sign in with Google</h6>
+        </div>
+      {/* </div> */}
     </div>
   )
 }
