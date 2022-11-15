@@ -9,3 +9,6 @@ a:hover{
     color: rgb(165, 180, 200);
 }
 
+.parent-height{
+    height: calc(100vh - 3.5rem);
+}

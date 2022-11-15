@@ -5,7 +5,7 @@ import { StateContext } from '../context/StateProvider'
 import './style.css'
 import {motion} from 'framer-motion'
 import {getAuth} from 'firebase/auth'
-import {app} from '../config/firebase.config'
+import {app} from '../config/firebase.config';
 import {
   Popover,
   PopoverTrigger,
@@ -13,6 +13,7 @@ import {
   Portal,
   Button,
 } from '@chakra-ui/react'
+import Musics from '../pages/Musics'
 
 const Navbar = () => {
 
@@ -28,14 +29,7 @@ const Navbar = () => {
   let profileIMG = imageURL ? imageURL : logo;
   let role = user?.user?.role;
   if(name) firstName = name.split(" ")[0];
-  const [activePopup, setActivePopup] = useState(undefined);
-
-  // const togglePopup = ()=>{
-  //   if(!firstName){
-  //     setActivePopup(false);
-  //   }
-  // }
-
+  // const [activePopup, setActivePopup] = useState(undefined);
 
 
   const headToHome =()=>{
@@ -55,7 +49,7 @@ const Navbar = () => {
 
   
   return (
-    <header className='h-14 w-screen bg-slate-800' >
+    <header className='h-14 w-screen bg-slate-800 text-slate-300' >
       <div className='h-14 w-screen bg-slate-800 fixed'>
         <div className='w-[90%] m-auto flex items-center justify-between '>
             <button onClick={headToHome} className='hidden md:flex' >
@@ -71,7 +65,9 @@ const Navbar = () => {
               </a>
 
               <a href='#musics' onClick={()=>setActiveNav('#musics')} className={activeNav === "#musics" ? 'active' : ''} >
-                <NavLink to={'/musics'} >Musics</NavLink>    
+                <NavLink to={'/musics'} >
+                  Musics
+                </NavLink>    
               </a>
 
               <a href='#premium' onClick={()=>setActiveNav('#premium')} className={activeNav === "#premium" ? 'active' : ''}>
@@ -98,17 +94,17 @@ const Navbar = () => {
                 </Button>
               </PopoverTrigger>
               <Portal  >
-                <PopoverContent className='bg-slate-800 w-44 border border-slate-400 shadow-2xl shadow-red-500 rounded-lg p-2'>
+                <PopoverContent className='bg-slate-800 w-44 border text-slate-300 border-slate-400 shadow-2xl shadow-red-500 rounded-lg p-2'>
                   <div className='flex flex-col'>
-                    <p className=' cursor-pointer' >Profile</p>
-                    <p className=' cursor-pointer'>My Favorites</p>
+                    <motion.p className=' cursor-pointer' whileHover={{scale: 0.95}} >Profile</motion.p>
+                    <motion.p className=' cursor-pointer' whileHover={{scale: 0.95}}>My Favorites</motion.p>
                     <div className='w-full h-1 bg-slate-400 rounded-3xl'></div>
                     {
                       role === "admin" && (
-                        <p className=' cursor-pointer'>Dashboard</p>
+                        <NavLink to='/dashboard/home' className=' cursor-pointer'>Dashboard</NavLink>
                       )
                     }
-                    <p onClick={signOut} className=' cursor-pointer' >Sign Out</p>
+                    <motion.p onClick={signOut} className=' cursor-pointer' whileHover={{scale: 0.95}} >Sign Out</motion.p>
                   </div>
                 </PopoverContent>
               </Portal>

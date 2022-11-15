@@ -9,7 +9,11 @@ import { app } from './config/firebase.config';
 import { validateUser } from './api/api';
 import { StateContext } from './context/StateProvider';
 import { actionType } from './context/reducer';
-
+import Dashboard from './pages/Dashboard';
+import Musics from './pages/Musics';
+import Premium from './pages/Premium';
+import Contact from './pages/Contact';
+import './components/style.css'
 function App() {
   const navigate = useNavigate();
   const firebaseAuth = getAuth(app);
@@ -34,17 +38,23 @@ function App() {
         navigate("/signin");
       }
     });
-    navigate("/home")
+    // navigate("/home")
   }, []);
   
 
 
   return (
-    <div className="App bg-slate-900">
+    <div className="App bg-slate-900 h-screen text-slate-300 ">
       <Navbar />
       <Routes>
         <Route path='/signin' element={<SignIn setAuth={setAuth} /> } />
         <Route path='/*' element={<Home /> } />
+        <Route path='/musics' element={<Musics /> } />
+        <Route path='/premium' element={<Premium /> } />
+        <Route path='/contact' element={<Contact /> } />
+        <Route path='/dashboard/*' element={<Dashboard /> } />
+          {/* <Route path='/home' element={<Dashboard />} />
+        </Route> */}
       </Routes>
     </div>
   );
