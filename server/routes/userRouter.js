@@ -62,4 +62,38 @@ const updateExistingUser = async(decodeValue, req, res)=>{
 
 }
 
+router.get("/get-users", async(req, res)=>{
+    const allUsers = await user.find();
+    try {
+        return res.status(200).send({success: true, data: allUsers});
+    } catch (error) {
+        return res.status(400).send({success: false, msg: "INTERNAL SERVER ERROR"});
+    }
+});
+
+
+
+
+router.put('/update/:id', async(req, res)=>{
+    const id = {_id: req.params.id};
+
+    const updatedData = {
+        name: req.body.name,  
+        email: req.body.email,  
+        imageURL: req.body.imageURL,
+        user_id: req.body.user_id,
+        email_verified: req.body.email_verified,
+        role: req.body.role,
+        auth_time: req.body.auth_time,
+    }
+
+    const updateUser = await user.findByIdAndUpdate(id, updatedData);
+    try {
+        return res.status(200).send({success: true, data: updateUser});
+    } catch (error) {
+        return res.status(400).send({success: false, msg: "INTERNAL SERVER ERROR"})
+    }
+})
+
+
 module.exports = router

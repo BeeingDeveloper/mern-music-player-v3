@@ -26,6 +26,8 @@ export const reducer =(state, action)=>{
         case actionType.SET_ALL_ALBUMNS:
             return {...state, allAlbums: action.allAlbums};
 
+        case actionType.SET_ALL_USERS:
+            return {...state, allUsers: action.allUsers}
         
         default:
             return state;

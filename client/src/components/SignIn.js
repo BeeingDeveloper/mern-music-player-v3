@@ -65,9 +65,9 @@ const SignIn = ({setAuth}) => {
           style={{ height: '150vh', position: 'absolute'}}
           // className=' w-screen h-screen object-cover'
         ></video>
-        <div className='absolute bottom-32 p-2 flex items-center justify-center gap-2 bg-slate-400 rounded-md hover:rounded-3xl bgs hover:bg-card  transition-all ease-in-out duration-600 shadow-xl cursor-pointer' onClick={loginWithGoogle} >
+        <div className='absolute bottom-32 p-2 flex items-center justify-center gap-2 bg-slate-600 rounded-md hover:rounded-3xl bgs hover:bg-card  transition-all ease-in-out duration-600 shadow-xl cursor-pointer' onClick={loginWithGoogle} >
           <FcGoogle />
-          <h6 className='h-6 text-white hover:text-slate-700'>Sign in with Google</h6>
+          <h6 className='h-6 text-white hover:text-slate-300'>Sign in with Google</h6>
         </div>
       {/* </div> */}
     </div>
