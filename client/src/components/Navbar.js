@@ -89,7 +89,7 @@ const Navbar = () => {
                     onClick={!firstName ? ()=>navigate("/signin") : ()=>navigate("/home") }
                   >
                       <h2 className='text-xl my-auto hidden md:flex mt-3' >{firstName ? firstName : "Sign In"}</h2>
-                      <img src={profileIMG} alt='profile' className='h-10 mt-2 rounded-full ' />
+                      <img src={profileIMG} alt='' className='h-10 mt-2 rounded-full ' />
                   </motion.div>
                 </Button>
               </PopoverTrigger>

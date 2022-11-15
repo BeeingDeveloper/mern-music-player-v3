@@ -96,4 +96,16 @@ router.put('/update/:id', async(req, res)=>{
 })
 
 
+
+
+router.delete('/delete/:id', async(req, res)=>{
+    const id = {_id: req.params.id};
+    const deletedUser = await user.findByIdAndDelete(id);
+    try {
+        return res.status(200).send({success: true, data: deletedUser});
+    } catch (error) {
+        return res.status(500).send({success: false, message: "INTERNAL SERVER ERROR"})
+    }
+})
+
 module.exports = router

@@ -21,3 +21,34 @@ export const fetchAllUsers = async()=>{
         return null;
     }
 }
+
+export const deleteUser = async(id)=>{
+    try {
+
+
+        const res = await axios.delete(`${baseURL}api/users/delete/${id}` )
+        
+        return res;
+    } catch (error) {
+        return null;
+    }
+}
+
+export const promoteToAdmin = async(id, role)=>{
+    try {
+        
+        const res = await axios.put(`${baseURL}api/users/update/${id}`, {role: "admin"});
+        return res;
+    } catch (error) {
+        return null;
+    }
+}
+
+export const demoteToMember = async(id, role)=>{
+    try {
+        const res = await axios.put(`${baseURL}api/users/update/${id}`, {role: "member"});
+        return res;
+    } catch (error) {
+        return null;
+    }
+}
