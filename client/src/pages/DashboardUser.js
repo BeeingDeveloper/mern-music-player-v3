@@ -10,6 +10,8 @@ const UserElement =({name, profileIMG, email, createdAt, role, key, id })=>{
   let date = new Date(createdAt).toLocaleDateString();
   const {state, dispatch} = useContext(StateContext);
   const {allUsers, user} = state;
+
+  
   useEffect(() => {
     fetchAllUsers().then((result)=>{
       dispatch({type: actionType.SET_ALL_USERS, allUsers: result.data});
@@ -38,9 +40,9 @@ const UserElement =({name, profileIMG, email, createdAt, role, key, id })=>{
   }
 
   const switchToMember =(id, role)=>{
-    demoteToMember(id, role).then((res)=>{
-      if(res){
-        fetchAllUsers().then((data)=>{
+    demoteToMember(id, role).then((data)=>{
+      if(data){
+        fetchAllUsers().then((res)=>{
           dispatch({type: actionType.SET_ALL_USERS, allUsers: res.data});
         })
       }

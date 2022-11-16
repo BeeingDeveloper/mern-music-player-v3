@@ -38,13 +38,13 @@ function App() {
         navigate("/signin");
       }
     });
-    // navigate("/home")
+    navigate("/home");
   }, []);
   
 
 
   return (
-    <div className="App bg-slate-900 h-screen text-slate-300 ">
+    <div className="App bg-slate-900 min-h-screen text-slate-300 ">
       <Navbar />
       <Routes>
         <Route path='/signin' element={<SignIn setAuth={setAuth} /> } />
