@@ -18,7 +18,6 @@ function App() {
   const navigate = useNavigate();
   const firebaseAuth = getAuth(app);
   const [auth, setAuth] = useState(false || window.localStorage.getItem("auth")=== "true");
-  console.log(auth)
   const {state, dispatch} = useContext(StateContext);
 
 
@@ -28,7 +27,6 @@ function App() {
         userData.getIdToken().then((token)=>{
           validateUser(token).then((data)=>{
             dispatch({type: actionType.SET_USER, user: data});
-            console.log(state)
           })
         })
       }else{

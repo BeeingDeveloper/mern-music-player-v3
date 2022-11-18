@@ -66,7 +66,7 @@ const UserElement =({name, profileIMG, email, createdAt, role, key, id })=>{
           <p className=' w-[110%]  h-fit my-auto '>{email}</p>
           <p className=' w-[40%]  h-fit my-auto '>{date}</p>
           <p className=' w-[90%]  h-fit my-auto '>{role}
-                    {role === "admin" ? (
+                    { role === "admin" ? (
                     <button className='text-slate-900 text-sm font-medium bg-red-500 rounded-3xl border border-slate-900 px-1 ml-2' onClick={()=>switchToMember(id, role)} >Demote</button>
                     ) : (<button className='text-slate-900 text-sm font-medium bg-green-500 rounded-3xl border border-slate-900 px-1 ml-2'
                             onClick={()=>switchToAdmin(id, role)}

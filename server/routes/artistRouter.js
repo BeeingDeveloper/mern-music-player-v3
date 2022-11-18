@@ -26,7 +26,7 @@ router.post('/create', async(req, res)=>{
 
 
 //GET ALL ARTISTS---------------------------------------------------------------------
-router.get('/all-artist', async(req, res)=>{
+router.get('/all-artists', async(req, res)=>{
     const artists = await artist.find().sort({createdAt: 1});
 
     try {

@@ -2,7 +2,7 @@ export const actionType = {
     SET_USER: "SET_USER",
     SET_SEARCH_TERM: "SET_SEARCH_TERM",
     SET_FILTER_TERM: "SET_FILTER_TERM",
-    SET_ARTISTS: "SET_ARTISTS",
+    SET_ALL_ARTISTS: "SET_ALL_ARTISTS",
     SET_ARTIST_FILTER: "SET_ARTIST_FILTER",
     SET_LANGUAGE_FILTER: "SET_LANGUAGE_FILTER",
     SET_ALL_USERS: "SET_ALL_USERS",
@@ -29,6 +29,8 @@ export const reducer =(state, action)=>{
         case actionType.SET_ALL_USERS:
             return {...state, allUsers: action.allUsers}
         
+        case actionType.SET_ALL_ARTISTS:
+            return {...state, allArtists: action.allArtists };
         default:
             return state;
     }

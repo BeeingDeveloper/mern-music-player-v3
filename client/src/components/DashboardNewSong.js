@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {BiCloudUpload} from 'react-icons/bi'
 import {getStorage, ref, getDownloadURL, uploadBytesResumable, deleteObject} from 'firebase/storage'
 import {storage} from '../config/firebase.config'
 import {MdDeleteForever} from 'react-icons/md'
 import {motion} from 'framer-motion'
+import {HiOutlineChevronDown} from 'react-icons/hi'
+import SelectDetails from './SelectDetails'
+import { fetchAllAlbums, fetchAllArtists, fetchAllSongs, uploadNewSong } from '../api/api'
+import { StateContext } from '../context/StateProvider'
+import { actionType } from '../context/reducer'
+
+
 
 const UploadingUI = (props)=>{
   const {fileUploadingProgress} = props;
@@ -39,6 +46,7 @@ const ImageInput =({ setIsImageLoading, setImageUploadingProgress, image, setIma
     ()=>{
       getDownloadURL(uploadTask.snapshot.ref).then((imageURL)=>{
         setImage(imageURL);
+        // console.log(image)
         setIsImageLoading(false);
       })
     }
@@ -169,39 +177,106 @@ const FileInputSection =(props)=>{
     audio,
     setAudio
   } = props;
-  
 
+  const {state, dispatch} = useContext(StateContext);
+  const {allAlbums, allArtists, allSongs, languages, category} = state;
+  useEffect(() => {
+    fetchAllAlbums().then((res)=>{
+      dispatch({type: actionType.SET_ALL_ALBUMNS, allAlbums: res.data});
+    })
+
+    fetchAllArtists().then((res)=>{
+      dispatch({type: actionType.SET_ALL_ARTISTS, allArtists: res.data});
+    })
+    
+  }, [])
+  
+  const [album, setAlbum] = useState(null);
+  const [artist, setArtist] = useState(null);
+  const [language, setLanguage] = useState(null);
+  const [musicCategory, setMusicCategory] = useState(null);
+
+  const uploadSong = ()=>{
+    if(!album || !artist || !language || !musicCategory || !name || (name.length <4) || !image || !audio){
+      alert("Fuckkk");
+    }else{
+
+      const songData = {
+        name: name,  
+        imageURL: image,
+        songURL: audio,
+        album: album,
+        artist: artist,
+        language: language,
+        category: musicCategory,
+      }
+
+      uploadNewSong(songData).then((res)=>{
+        fetchAllSongs().then((result)=>{
+          dispatch({type: actionType.SET_ALL_SONGS, allSongs: result.data})
+        })
+      })
+
+      setName("")
+      setImage(null)
+      setAudio(null)
+    }
+  }
 
   return(
     <div className=' p-2' >
       <div className='m-4'>
         <input type='name' required className='w-full h-8 rounded-md pl-2 text-slate-900 outline-none' placeholder='Type song name...' value={name} onChange={(e)=>setName(e.target.value)} />
       </div>
-      <div className='w-[50%] m-4 rel ' >
-        <div className='w-full mb-5 h-60 bg-slate-800 rounded-md border border-red-600'>
-          { isImageLoading ? ( <UploadingUI fileUploadingProgress={imageUploadingProgress} /> ) : ( <ImageInput setIsImageLoading={setIsImageLoading} 
-                                                                                                                setImageUploadingProgress={setImageUploadingProgress}
-                                                                                                                setImage={setImage}
-                                                                                                                image={image}
-                                                                                                                /> )}
-        </div>
 
+      <div className='flex'>
+        {/* left */}
+          <div className='w-[50%] p-4 rel ' >
+            <div className='w-full mb-5 h-60 bg-slate-800 rounded-md border border-red-600'>
+              { isImageLoading ? ( <UploadingUI fileUploadingProgress={imageUploadingProgress} /> ) : ( <ImageInput setIsImageLoading={setIsImageLoading} 
+                                                                                                                    setImageUploadingProgress={setImageUploadingProgress}
+                                                                                                                    setImage={setImage}
+                                                                                                                    image={image}
+                                                                                                                    /> )}
+            </div>
+              
+              
+              
+            <div className='w-full h-60 bg-slate-800 rounded-md border border-red-600'>
+              { isAudioLoading ? ( <UploadingUI fileUploadingProgress={audioUploadingProgress}  /> ) : ( <AudioInput  setIsAudioLoading={setIsAudioLoading}  
+                                                                                                                      setAudioUploadingProgress={setAudioUploadingProgress} 
+                                                                                                                      setAudio={setAudio} 
+                                                                                                                      audio={audio}
+                                                                                                                      /> )}
+            </div>
+          </div>
 
+          <div className='w-[50%] p-4 h-full '>
+            <SelectDetails selectItem={"Select Album : "}  selectionId={1} optionName={"Album"} selectByData={allAlbums} setAlbum={setAlbum} />
+            <SelectDetails selectItem={"Select Artist : "} selectionId={2} optionName={"Artist"} selectByData={allArtists} setArtist={setArtist} />
+            <SelectDetails selectItem={"Select Language : "} selectionId={3} optionName={"Language"} selectByData={languages} setLanguage={setLanguage} />
+            <SelectDetails selectItem={"Select Category : "} selectionId={4} optionName={"Category"} selectByData={category} setMusicCategory={setMusicCategory} />
+            
+            <motion.div whileHover={{scale: 0.95}} 
+                        className=' h-14 w-80 bg-red-600 rounded-md flex justify-center items-center cursor-pointer'
+                        onClick={uploadSong}
+                        >
+                <h2 className='text-2xl' >Upload Song</h2>
+            </motion.div>
+          </div>
 
-        <div className='w-full h-60 bg-slate-800 rounded-md border border-red-600'>
-          { isAudioLoading ? ( <UploadingUI fileUploadingProgress={audioUploadingProgress}  /> ) : ( <AudioInput  setIsAudioLoading={setIsAudioLoading}  
-                                                                                                                  setAudioUploadingProgress={setAudioUploadingProgress} 
-                                                                                                                  setAudio={setAudio} 
-                                                                                                                  audio={audio}
-                                                                                                                  /> )}
-        </div>
       </div>
     </div>
   )
 }
 
 
-
+{/* <div className='w-[50] h-full bg-cyan-500'>
+<div className='flex justify-center items-center'>
+  <h2>Select Album</h2>
+  <div className=' w-[50%] h-10 bg-green-500'></div>
+</div>
+</div> */}
 const DashboardNewSong = () => {
 
   const [name, setName] = useState("");
@@ -211,6 +286,7 @@ const DashboardNewSong = () => {
   const [isAudioLoading, setIsAudioLoading] = useState(false)
   const [imageUploadingProgress, setImageUploadingProgress] = useState(0);
   const [audioUploadingProgress, setAudioUploadingProgress] = useState(0);
+
 
   return (
     <div className='w-full relative top-20 p-2 gap-5 flex justify-center items-center  h-auto'>

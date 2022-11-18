@@ -13,9 +13,23 @@ const StateProvider = (props) => {
         allSongs: null,
         allAlbums: null,
         allArtists: null,
-        languageFilter: null,
+        languages: [
+              {name: "Bengali"}, 
+              {name: "Hindi"}, 
+              {name: "English"}, 
+              {name: "Spanish"}, 
+              {name: "Others"
+        }],
         searchTerm: "",
-        filterTerm:"all",
+        category: [
+              {name: "Rock"},
+              {name: "Hip Hop"}, 
+              {name: "Pop"}, 
+              {name: "Jazz"}, 
+              {name: "Classical"}, 
+              {name: "Electronics"}, 
+              {name: "Metal"
+        }],
         artists: null,
         artistFilter: null,
         albumFilter: null,
