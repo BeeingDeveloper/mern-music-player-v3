@@ -49,7 +49,7 @@ const Navbar = () => {
 
   
   return (
-    <header className='h-14 w-screen bg-slate-800 text-slate-300 z-10' >
+    <header className='h-14 w-screen bg-slate-800 text-slate-300 z-10 ' >
       <div className='h-14 w-screen bg-slate-800 fixed'>
         <div className='w-[90%] m-auto flex items-center justify-between '>
             <button onClick={headToHome} className='hidden md:flex' >

@@ -84,10 +84,26 @@ export const fetchAllSongs = async()=>{
 export const uploadNewSong = async(data)=>{
     try {
         const res = await axios.post(`${baseURL}api/songs/create`, {...data});
-        console.log(data)
         return await res.data;
     } catch (error) {
-        // console.log(data)
+        return null;
+    }
+}
+
+export const uploadNewArtist = async(data)=>{
+    try {
+        const res = await axios.post(`${baseURL}api/artists/create`, {...data});
+        return await res.data;
+    } catch (error) {
+        return null;
+    }
+}
+
+export const uploadNewAlbum = async(data)=>{
+    try {
+        const res = await axios.post(`${baseURL}api/albums/create`, {...data});
+        return await res.data;
+    } catch (error) {
         return null;
     }
 }
