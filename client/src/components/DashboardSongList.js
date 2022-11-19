@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { StateContext } from '../context/StateProvider'
 import {MdDeleteForever} from 'react-icons/md';
 import {motion} from 'framer-motion';
-import { fetchAllSongs } from '../api/api';
+import { deleteSongItem, fetchAllSongs } from '../api/api';
 import { actionType } from '../context/reducer';
 
 
@@ -22,7 +22,13 @@ const SongElement =({songName, songCover, id})=>{
   const {allSongs} = state;
 
   
-
+  const deleteSong=(id)=>{
+    deleteSongItem(id).then((data)=>{
+      fetchAllSongs().then((res)=>{
+        dispatch({type: actionType.SET_ALL_SONGS, allSongs: res.data});
+      })
+    })
+  }
 
   return (
     <div className='flex h-56 w-52 ' >
@@ -31,7 +37,7 @@ const SongElement =({songName, songCover, id})=>{
             >
           <div className='h-full w-full p-4 flex justify-center items-center ml-4'>
             <motion.div whileHover={{scale: 0.9}} className=' bg-red-500 rounded-full  w-fit text-[4rem]'>
-              <MdDeleteForever className='' /> 
+              <MdDeleteForever className='' onClick={()=>deleteSong(id)} /> 
             </motion.div>
             
           </div>

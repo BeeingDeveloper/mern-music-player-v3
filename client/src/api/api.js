@@ -107,3 +107,13 @@ export const uploadNewAlbum = async(data)=>{
         return null;
     }
 }
+
+
+export const deleteSongItem = async(id)=>{
+    try {
+        const res = await axios.delete(`${baseURL}api/songs/delete/${id}`);
+        return await res.data;
+    } catch (error) {
+        return null;
+    }
+}

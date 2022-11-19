@@ -225,9 +225,13 @@ const FileInputSection =(props)=>{
         })
       })
 
-      setName("")
-      setImage(null)
-      setAudio(null)
+      setName("");
+      setImage(null);
+      setAudio(null);
+      setAlbum(false);
+      setArtist(false);
+      setLanguage(false);
+      setMusicCategory(false);
     }
   }
   return(
@@ -399,7 +403,7 @@ const DashboardNewSong = () => {
 
 
   return (
-    <div className='w-full relative top-20 p-2 gap-5 flex justify-center items-center  h-auto'>
+    <div className='w-full p-2 pt-5 pb-20 gap-5 flex justify-center items-center  h-auto'>
       {/* ================================================================================ */}
       <div className='w-[55%] h-[70%] border rounded-md bg-slate-800 border-red-600'>
         <FileInputSection 
