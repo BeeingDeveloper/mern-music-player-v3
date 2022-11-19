@@ -91,7 +91,7 @@ const ImageInput =({ setIsImageLoading, setImageUploadingProgress, image, setIma
     </div>
   )
 }
-const AudioInput =({ setIsAudioLoading, setAudioUploadingProgress, setAudio, audio })=>{
+const AudioInput =({ setIsAudioLoading, setAudioUploadingProgress, setAudio, audio, setName })=>{
   
   const uploadFile = (e)=>{
     setIsAudioLoading(true);
@@ -109,6 +109,7 @@ const AudioInput =({ setIsAudioLoading, setAudioUploadingProgress, setAudio, aud
         ()=>{
           getDownloadURL(uploadTask.snapshot.ref).then((songURL)=>{
             setAudio(songURL);
+            setName(uploadItem.name);
             setIsAudioLoading(false);
           })
         }
@@ -244,7 +245,7 @@ const FileInputSection =(props)=>{
 
       <div className='flex'>
           <div className='w-[50%] p-4 rel ' >
-            <div className='w-full mb-5 h-64 bg-slate-900 rounded-md border border-red-600'>
+            <div id='IMAGE-INPUT-SECTION' className='w-full mb-5 h-64 bg-slate-900 rounded-md border border-red-600'>
               { isImageLoading ? ( <UploadingUI fileUploadingProgress={imageUploadingProgress} /> ) : ( <ImageInput setIsImageLoading={setIsImageLoading} 
                                                                                                                     setImageUploadingProgress={setImageUploadingProgress}
                                                                                                                     setImage={setImage}
@@ -255,11 +256,12 @@ const FileInputSection =(props)=>{
               
               
               
-            <div className='w-full h-64 bg-slate-900 rounded-md border border-red-600'>
+            <div id='AUDIO-INPUT-SECTION' className='w-full h-64 bg-slate-900 rounded-md border border-red-600'>
               { isAudioLoading ? ( <UploadingUI fileUploadingProgress={audioUploadingProgress}  /> ) : ( <AudioInput  setIsAudioLoading={setIsAudioLoading}  
                                                                                                                       setAudioUploadingProgress={setAudioUploadingProgress} 
                                                                                                                       setAudio={setAudio} 
                                                                                                                       audio={audio}
+                                                                                                                      setName={setName}
                                                                                                                       /> )
               }
             </div>
@@ -306,7 +308,7 @@ const FileInputSection =(props)=>{
                         className=' h-12 w-80 bg-red-600 hover:shadow-lg hover:shadow-red-600  rounded-full hover:rounded-full flex justify-center items-center cursor-pointer'
                         onClick={uploadSong}
                         >
-                <h2 className='text-2xl' >Upload Song</h2>
+                <h2 className='text-2xl'>Upload Song</h2>
             </motion.div>
           </div>
 

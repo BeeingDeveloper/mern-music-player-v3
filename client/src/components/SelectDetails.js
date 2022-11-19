@@ -1,25 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { Select } from '@chakra-ui/react'
-
-
-
-
-// const NewForm = ()=>{
-
-//     const [name, setName] = useState(null);
-//     console.log(name)
-//     return(
-//         <>
-//         <Select placeholder='Select option'>
-//           <option value='option1' onClick={(e)=>setName()}>Option 1</option>
-//           <option value='option2'  onClick={(e)=>setName(e.target.value)}>Option 2</option>
-//           <option value='option3'  onClick={(e)=>setName(e.target.value)}>Option 3</option>
-//         </Select>
-//         </>
-//     )
-// }
-
-// <NewForm />
 
 
 const SelectDetails = ({selectItem, optionName, selectByData, selectionId, setAlbum, setArtist, setLanguage, setMusicCategory}) => {
@@ -59,15 +39,3 @@ const SelectDetails = ({selectItem, optionName, selectByData, selectionId, setAl
 }
 
 export default SelectDetails
-
-
-// {
-//     allAlbums?.map((elm)=>{
-//         <option value='option1'>{elm.name}</option>
-//     })
-//   }
-
-
- {/* <div className=' w-[50%] h-10 bg-slate-700 rounded-md '> */}
-            {/* <HiOutlineChevronDown className='text-slate-200 relative left-[87%] text-2xl h-10 my-auto' onClick={()=>toggleDropDown()} /> */}
-            
