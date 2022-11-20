@@ -85,16 +85,16 @@ const Navbar = () => {
               >
               <PopoverTrigger>
                 <Button>
-                  <motion.div className='w-fit h-full flex gap-3 mb-2 ' 
+                  <motion.div className='w-fit h-fit flex gap-2 bg-slate-700 rounded-3xl p-1 hover:bg-slate-900 transition-all ease-in-out duration-200 ' whileHover={{scale: 0.9}}
                     onClick={!firstName ? ()=>navigate("/signin") : ()=>navigate("/home") }
                   >
-                      <h2 className='text-xl my-auto hidden md:flex mt-3' >{firstName ? firstName : "Sign In"}</h2>
-                      <img src={profileIMG} alt='' className='h-10 mt-2 rounded-full ' />
+                      <h2 className='text-xl my-auto pl-2 hidden md:flex' >{firstName ? firstName : "Sign In"}</h2>
+                      <img src={profileIMG} alt='' className='h-8  rounded-full ' />
                   </motion.div>
                 </Button>
               </PopoverTrigger>
               <Portal  >
-                <PopoverContent className='bg-slate-800 w-44 border text-slate-300 border-slate-400 shadow-2xl shadow-red-500 rounded-lg p-2'>
+                <PopoverContent className='bg-slate-800 w-44 text-slate-300 shadow-2xl shadow-red-500 rounded-lg p-2 hover:bg-slate-900'>
                   <div className='flex flex-col'>
                     <motion.p className=' cursor-pointer' whileHover={{scale: 0.95}} >Profile</motion.p>
                     <motion.p className=' cursor-pointer' whileHover={{scale: 0.95}}>My Favorites</motion.p>

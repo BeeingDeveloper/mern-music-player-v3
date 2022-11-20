@@ -18,8 +18,8 @@ const StateProvider = (props) => {
               {name: "Hindi"}, 
               {name: "English"}, 
               {name: "Spanish"}, 
-              {name: "Others"
-        }],
+              {name: "Others"}
+        ],
         searchTerm: "",
         category: [
               {name: "Rock"},
@@ -28,8 +28,8 @@ const StateProvider = (props) => {
               {name: "Jazz"}, 
               {name: "Classical"}, 
               {name: "Electronics"}, 
-              {name: "Metal"
-        }],
+              {name: "Metal"}
+        ],
         artists: null,
         artistFilter: null,
         albumFilter: null,

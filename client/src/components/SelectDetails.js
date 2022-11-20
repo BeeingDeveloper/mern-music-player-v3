@@ -23,7 +23,7 @@ const SelectDetails = ({selectItem, optionName, selectByData, selectionId, setAl
     <>
     <div className='flex w-[100%] text-left gap-10  pb-10 justify-around items-center'>
 
-        <h2 className='w-[50%] text-xl' >{selectItem}</h2>
+        <h2 className='w-[52%] text-xl' >{selectItem}</h2>
         <Select placeholder={optionName} className=' pl-4 h-10 w-[95%] hover:shadow-lg hover:shadow-red-600 text-slate-200 rounded-md bg-slate-900 outline-none' onChange={(e)=>onChangeOption(e)} >
           {
             selectByData?.map((elm, i)=>{

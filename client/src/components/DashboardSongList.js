@@ -4,9 +4,12 @@ import {MdDeleteForever} from 'react-icons/md';
 import {motion} from 'framer-motion';
 import { deleteSongItem, fetchAllSongs } from '../api/api';
 import { actionType } from '../context/reducer';
+import { ref, deleteObject } from 'firebase/storage';
+import { storage } from '../config/firebase.config';
+import {BiSearchAlt} from 'react-icons/bi';
 
 
-const SongElement =({songName, songCover, id})=>{
+const SongElement =({songName, songCover, id, songData})=>{
 
   const [flip, setFlip] = useState(false);
 
@@ -22,22 +25,31 @@ const SongElement =({songName, songCover, id})=>{
   const {allSongs} = state;
 
   
-  const deleteSong=(id)=>{
-    deleteSongItem(id).then((data)=>{
+  const deleteSong=(songData)=>{
+    deleteSongItem(songData._id).then((data)=>{
       fetchAllSongs().then((res)=>{
         dispatch({type: actionType.SET_ALL_SONGS, allSongs: res.data});
-      })
+      });
+
+      const deleteIMG = ref(storage, songData.imageURL);
+      deleteObject(deleteIMG).then(()=>{
+      });
+
+      const deleteAUDIO = ref(storage, songData.songURL);
+      deleteObject(deleteAUDIO).then(()=>{
+        console.log("song delted");
+      });
     })
   }
 
   return (
-    <div className='flex h-56 w-52 ' >
+    <motion.div className='flex h-64 w-52 hover:shadow-xl hover:shadow-slate-500' whileHover={{scale: 1.1}}  >
       <div  className={`w-full ${flip?"w-full": "w-0"} bg-slate-800 transition-all ease-in-out duration-500 rounded-md`}
             onMouseLeave={()=>toggleFlip()}
             >
           <div className='h-full w-full p-4 flex justify-center items-center ml-4'>
             <motion.button whileHover={{scale: 0.875}} className=' bg-red-500 rounded-full  w-fit text-[4rem]'>
-              <MdDeleteForever className='' onClick={()=>deleteSong(id)} /> 
+              <MdDeleteForever className='' onClick={()=>deleteSong(songData)} /> 
             </motion.button>
             
           </div>
@@ -48,19 +60,19 @@ const SongElement =({songName, songCover, id})=>{
             onMouseEnter={()=>toggleFlip()}
             >     
         <img src={songCover}
-          className='h-[85%] w-[95%] m-auto rounded-md'
+          className='h-[85%] w-[95%] m-auto rounded-lg'
         />
         <div className='flex gap-2 p-1 text-center'>
 
           <h2>{`${songName.length > 20 ? songName.slice(0, 20)+"..." : songName} `}</h2>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
 
-const DashboardSongList = () => {
+const DashboardSongList = ({searchSong}) => {
 
   const {state, dispatch} = useContext(StateContext);
   const {allSongs} = state;
@@ -69,21 +81,52 @@ const DashboardSongList = () => {
     fetchAllSongs().then((result)=>{
       dispatch({type: actionType.SET_ALL_SONGS, allSongs: result.data})
     })
-  }, [])
+  }, []);
   
+  const [songList, setSongList] = useState(allSongs);
+  const [searchSongName, setSearchSongName] = useState("");
+
+
+  const searchSongs = ()=>{
+    setSongList(songList.filter((elm)=>{
+      let len = searchSongName.length;
+      return elm.name.slice(0, len) === searchSongName;
+    })
+    )
+  }
+
+  const handleChange =(e)=>{
+    setSearchSongName(e.target.value);
+    searchSongs();
+    if(searchSongName.length <= 1){
+      setSongList(allSongs)
+    }
+  }
+
 
   return (
-    <div className='w-[90%] grid md:grid-cols-3 lg:grid-cols-5 m-auto h-auto  rounded-md p-2'>
-      {
-        allSongs?.map((elm)=>{
-          return (
-            <>
-              <SongElement songName={elm.name} songCover={elm.imageURL} id={elm._id} />
-            </>
-          )
-        })
-      }
-    </div>
+    <>
+      <div className='flex w-fit m-auto gap-5 pb-5'>
+          <input  placeholder='Search songs...' 
+                                        className=' bg-slate-200 rounded-md outline-none text-slate-900 ml-5 px-2 shadow-lg shadow-slate-400'
+                                        onChange={handleChange}
+                                        />
+          <motion.button className='text-2xl' whileHover={{scale: 0.85}} >
+            <BiSearchAlt onClick={searchSongs} />
+          </motion.button>
+      </div>
+      <div className='w-[90%] grid md:grid-cols-3 lg:grid-cols-5 m-auto h-auto  rounded-md p-2'>
+        {
+          songList?.map((elm, i)=>{
+            return (
+              <>
+                <SongElement songName={elm.name} songCover={elm.imageURL} id={elm._id} songData={elm} key={i} />
+              </>
+            )
+          })
+        }
+      </div>
+    </>
   )
 }
 

@@ -445,7 +445,7 @@ const DashboardNewSong = () => {
 
 
               <div className='w-[40%] h-[100%] m-2' >
-                <h2 className='text-2xl py-2 text-left pt-5' >Enter Artist Name</h2>
+                <h2 className='text-2xl py-2 text-left pt-5' >Create New Artist</h2>
                 <input  className='w-full h-8 rounded-md pl-2 text-slate-900 outline-none focus-within:shadow-lg  focus-within:shadow-slate-500 my-4' 
                         value={artistName} 
                         onChange={(e)=>setArtistName(e.target.value)}
@@ -480,7 +480,7 @@ const DashboardNewSong = () => {
               
               
               <div className='w-[40%] h-[100%] m-2' >
-                <h2 className='text-2xl py-2 text-left pt-5' >Enter Album Name</h2>
+                <h2 className='text-2xl py-2 text-left pt-5' >Create New Album</h2>
                 <input  className='w-full h-8 rounded-md pl-2 text-slate-900 outline-none focus-within:shadow-lg  focus-within:shadow-slate-500 my-4' 
                         value={albumName} 
                         onChange={(e)=>setAlbumName(e.target.value)}
