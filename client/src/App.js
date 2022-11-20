@@ -33,7 +33,7 @@ function App() {
         setAuth(false);
         window.localStorage.setItem("auth", "false");
         dispatch({type: actionType.SET_USER, user: null})
-        navigate("/signin");
+        // navigate("/signin");
       }
     });
     navigate("/home");

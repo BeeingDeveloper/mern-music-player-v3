@@ -36,9 +36,9 @@ const SongElement =({songName, songCover, id})=>{
             onMouseLeave={()=>toggleFlip()}
             >
           <div className='h-full w-full p-4 flex justify-center items-center ml-4'>
-            <motion.div whileHover={{scale: 0.9}} className=' bg-red-500 rounded-full  w-fit text-[4rem]'>
+            <motion.button whileHover={{scale: 0.875}} className=' bg-red-500 rounded-full  w-fit text-[4rem]'>
               <MdDeleteForever className='' onClick={()=>deleteSong(id)} /> 
-            </motion.div>
+            </motion.button>
             
           </div>
 
