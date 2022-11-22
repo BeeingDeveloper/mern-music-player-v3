@@ -59,7 +59,8 @@ const Navbar = () => {
             </button>
 
 
-            <div className='flex items-center justify-center gap-5 h-14' >
+            <div className='flex items-center justify-center  h-14' >
+              <div className='bg-slate-900 p-2 px-3 rounded-3xl flex gap-5'>
               <a href='#home' onClick={()=>setActiveNav('#')} className={activeNav === "#home" ? 'active' : ''} >
                 <NavLink to={'/home'} >Home</NavLink>    
               </a>
@@ -77,6 +78,7 @@ const Navbar = () => {
               <a href='#contact' onClick={()=>setActiveNav('#contact')} className={activeNav === "#contact" ? 'active' : ''} >
                 <NavLink to={'/contact'} > Contact Us</NavLink> 
               </a>
+              </div>
             </div>
 
             <Popover
@@ -85,7 +87,7 @@ const Navbar = () => {
               >
               <PopoverTrigger>
                 <Button>
-                  <motion.div className='w-fit h-fit flex gap-2 bg-slate-700 rounded-3xl p-1 hover:bg-slate-900 transition-all ease-in-out duration-200 ' whileHover={{scale: 0.9}}
+                  <motion.div className='w-fit h-fit flex gap-2 rounded-3xl p-1 bg-slate-900 transition-all ease-in-out duration-200 ' whileHover={{scale: 0.9}}
                     onClick={!firstName ? ()=>navigate("/signin") : ()=>navigate("/home") }
                   >
                       <h2 className='text-xl my-auto pl-2 hidden md:flex' >{firstName ? firstName : "Sign In"}</h2>

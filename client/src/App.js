@@ -14,6 +14,7 @@ import Musics from './pages/Musics';
 import Premium from './pages/Premium';
 import Contact from './pages/Contact';
 import './components/style.css'
+import PlayerBar from './components/PlayerBar';
 function App() {
   const navigate = useNavigate();
   const firebaseAuth = getAuth(app);
@@ -42,7 +43,7 @@ function App() {
 
 
   return (
-    <div className="App bg-slate-900 min-h-screen text-slate-300 ">
+    <div className="App bg-slate-900 h-full text-slate-300 ">
       <Navbar />
       <Routes>
         <Route path='/signin' element={<SignIn setAuth={setAuth} /> } />
@@ -54,6 +55,7 @@ function App() {
           {/* <Route path='/home' element={<Dashboard />} />
         </Route> */}
       </Routes>
+      <PlayerBar />
     </div>
   );
 }

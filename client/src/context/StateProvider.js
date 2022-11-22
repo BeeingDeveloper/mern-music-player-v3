@@ -33,7 +33,7 @@ const StateProvider = (props) => {
         artists: null,
         artistFilter: null,
         albumFilter: null,
-        song: 0,
+        songIndex: 0,
         isSongPlaying: false,
         miniPlayer: false,
     }

@@ -6,7 +6,7 @@ import { deleteSongItem, fetchAllSongs } from '../api/api';
 import { actionType } from '../context/reducer';
 import { ref, deleteObject } from 'firebase/storage';
 import { storage } from '../config/firebase.config';
-import {BiSearchAlt} from 'react-icons/bi';
+import {MdCleaningServices} from 'react-icons/md';
 
 
 const SongElement =({songName, songCover, id, songData})=>{
@@ -90,7 +90,8 @@ const DashboardSongList = ({searchSong}) => {
   const searchSongs = ()=>{
     setSongList(songList.filter((elm)=>{
       let len = searchSongName.length;
-      return elm.name.slice(0, len) === searchSongName;
+      let getName = elm.name.toLowerCase();
+      return getName.includes(searchSongName)
     })
     )
   }
@@ -112,7 +113,7 @@ const DashboardSongList = ({searchSong}) => {
                                         onChange={handleChange}
                                         />
           <motion.button className='text-2xl' whileHover={{scale: 0.85}} >
-            <BiSearchAlt onClick={searchSongs} />
+            <MdCleaningServices onClick={()=>setSongList(allSongs)} className='transform rotate-0 hover:rotate-45 transition-all ease-in-out duration-200' />
           </motion.button>
       </div>
       <div className='w-[90%] grid md:grid-cols-3 lg:grid-cols-5 m-auto h-auto  rounded-md p-2'>
