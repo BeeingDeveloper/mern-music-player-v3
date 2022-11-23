@@ -99,6 +99,7 @@ export const uploadNewArtist = async(data)=>{
     }
 }
 
+
 export const uploadNewAlbum = async(data)=>{
     try {
         const res = await axios.post(`${baseURL}api/albums/create`, {...data});
@@ -117,3 +118,22 @@ export const deleteSongItem = async(id)=>{
         return null;
     }
 }
+
+
+export const deleteArtist = async(id)=>{
+    try {
+        const res = await axios.delete(`${baseURL}api/artists/delete/${id}`);
+        return await res.data;
+    } catch (error) {
+        return null;
+    }
+}
+
+export const deleteAlbum = async(id)=>{
+    try {
+        const res = await axios.delete(`${baseURL}api/albums/delete/${id}`);
+        return await res.data;
+    } catch (error) {
+        return null;
+    }
+} 

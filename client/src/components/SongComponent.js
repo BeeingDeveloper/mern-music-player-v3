@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {BsFillPlayCircleFill} from 'react-icons/bs'
 import {motion} from 'framer-motion'
+import { StateContext } from '../context/StateProvider'
+import { actionType } from '../context/reducer'
 
-const SongComponent = ({name, imageURL, artist}) => {
+const SongComponent = ({name, imageURL, artist, index}) => {
+
+  const {state, dispatch} = useContext(StateContext);
+  const {songIndex, isSongPlaying} = state;
+
+  const handleToPlayer = () =>{
+    if(!isSongPlaying){
+      dispatch({type: actionType.SET_IS_SONG_PLAYING, isSongPlaying: true});
+    }
+    if(songIndex !== index){
+      dispatch({type: actionType.SET_SONG_INDEX, songIndex: index});
+    }
+  }
+  
+
   return (
-    <div className='h-56 w-48 m-4 rounded-lg bg-slate-800'>
+    <div className='h-56 w-48 m-4 rounded-lg bg-slate-800' onClick={handleToPlayer}>
         <div className='h-[80%] w-full rounded-md p-1'>
             <img src={imageURL} className=' h-full w-full rounded-md' />
         </div>

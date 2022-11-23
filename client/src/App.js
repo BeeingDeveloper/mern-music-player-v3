@@ -43,7 +43,7 @@ function App() {
 
 
   return (
-    <div className="App bg-slate-900 h-full text-slate-300 ">
+    <div className="App bg-slate-900 h-screen text-slate-300 ">
       <Navbar />
       <Routes>
         <Route path='/signin' element={<SignIn setAuth={setAuth} /> } />

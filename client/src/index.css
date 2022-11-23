@@ -1,4 +1,49 @@
-@tailwind base; @tailwind components; @tailwind utilities;
+
+.rhap_container{
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.rhap_play-pause-button{
+  color: #ff0000 !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.rhap_play-pause-button:hover{
+  transform: scale(1.2);
+}
+
+.rhap_forward-button, .rhap_rewind-button, .rhap_skip-button, .rhap_volume-button, .rhap_repeat-button{
+  transition: all 0.3s ease-in-out;
+}
+
+.rhap_forward-button:hover, .rhap_rewind-button:hover, .rhap_skip-button:hover, .rhap_volume-button:hover, .rhap_repeat-button:hover{
+  transform: scale(1.2);
+  color : rgb(205, 48, 48) !important;
+}
+
+.rhap_progress-filled{
+  background-color: #ff0000 !important;
+}
+
+.rhap_progress-indicator, .rhap_volume-indicator{
+  background: #cc1b1b  !important;
+}
+
+.rhap_progress-indicator:hover, .rhap_volume-indicator:hover{
+  transform: scale(1.2);
+}
+
+.rhap_download-progress, .rhap_volume-bar{
+  background-color: #f409096f !important; 
+}
+.rhap_time{
+  color: #e74646 !important;
+}
+@tailwind base; 
+@tailwind components; 
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,300;0,400;0,500;1,400;1,500&display=swap');
 ::-webkit-scrollbar {
   display: none;

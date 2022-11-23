@@ -107,7 +107,7 @@ const DashboardSongList = ({searchSong}) => {
 
   return (
     <>
-      <div className='flex w-fit m-auto gap-5 pb-5'>
+      <div className='flex w-fit m-auto gap-5 pb-5' onKeyDown={()=>setSongList(allSongs)} >
           <input  placeholder='Search songs...' 
                                         className=' bg-slate-200 rounded-md outline-none text-slate-900 ml-5 px-2 shadow-lg shadow-slate-400'
                                         onChange={handleChange}
@@ -120,9 +120,7 @@ const DashboardSongList = ({searchSong}) => {
         {
           songList?.map((elm, i)=>{
             return (
-              <>
-                <SongElement songName={elm.name} songCover={elm.imageURL} id={elm._id} songData={elm} key={i} />
-              </>
+                <SongElement key={i} songName={elm.name} songCover={elm.imageURL} id={elm._id} songData={elm}  />
             )
           })
         }

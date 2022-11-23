@@ -34,10 +34,10 @@ export const reducer =(state, action)=>{
             return {...state, allArtists: action.allArtists };
 
         case actionType.SET_IS_SONG_PLAYING:
-            return {...state, isSongPlaying: action.SET_IS_SONG_PLAYING};
+            return {...state, isSongPlaying: action.isSongPlaying};
 
         case actionType.SET_SONG_INDEX:
-            return {...state, songIndex: action.SET_SONG_INDEX};
+            return {...state, songIndex: action.songIndex};
             
         default:
             return state;
