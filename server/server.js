@@ -52,6 +52,9 @@ app.use('/api/users/', userRouter);
 const playlistRouter = require('./routes/playlistRouter');
 app.use('/api/playlist', playlistRouter);
 
+const playlistItemRouter = require('./routes/playlistItemRouter');
+app.use('/api/playlistItem', playlistItemRouter);
+
 //START SERVER-------------------------------------------------------------------
 app.listen(port, ()=>{
     console.log(`Server running at port: ${port}`);

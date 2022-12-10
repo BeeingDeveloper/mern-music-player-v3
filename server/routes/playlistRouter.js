@@ -6,7 +6,6 @@ router.post('/create', async(req, res)=>{
     const newPlaylist = playlist({
         name:  req.body.name,
         userId: req.body.userId,
-        listItem: req.body.listItem
     });
 
     try {
@@ -30,5 +29,15 @@ router.get('/get-playlists', async(req, res)=>{
     }
 });
 
+
+
+router.put('/update/:id', async(req, res)=>{
+
+    const playlistId = {_id: req.params.id};
+
+    // const updatedData = {
+
+    // }
+})
 
 module.exports = router;

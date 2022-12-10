@@ -25,10 +25,7 @@ export const fetchAllUsers = async()=>{
 
 export const deleteUser = async(id)=>{
     try {
-
-
         const res = await axios.delete(`${baseURL}api/users/delete/${id}` )
-        
         return res;
     } catch (error) {
         return null;
@@ -136,4 +133,31 @@ export const deleteAlbum = async(id)=>{
     } catch (error) {
         return null;
     }
-} 
+}
+
+export const createNewPlaylist = async(data)=>{
+    try {
+        const res = await axios.post(`${baseURL}api/playlist/create`,{...data});
+        return await res.data;
+    } catch (error) {
+        return null;
+    }
+}
+
+export const fetchAllPlaylist = async()=>{
+    try {
+        const res = await axios.get(`${baseURL}api/playlist/get-playlists`);
+        return await res.data;
+    } catch (error) {
+        return null;
+    }
+}
+
+export const addSongItemToPlaylist = async(data)=>{
+    try {
+        const res = await axios.post(`${baseURL}api/playlistItem/add-to-playlist`, {...data});
+        return await res.data;
+    } catch (error) {
+        return null;
+    }
+}

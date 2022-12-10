@@ -36,6 +36,7 @@ const StateProvider = (props) => {
         songIndex: 0,
         isSongPlaying: false,
         miniPlayer: false,
+        playList: null,
     }
 
 

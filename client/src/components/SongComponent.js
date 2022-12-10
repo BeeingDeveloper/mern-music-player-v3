@@ -1,13 +1,26 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import {BsFillPlayCircleFill} from 'react-icons/bs'
 import {motion} from 'framer-motion'
 import { StateContext } from '../context/StateProvider'
 import { actionType } from '../context/reducer'
+import { addSongItemToPlaylist } from '../api/api'
 
-const SongComponent = ({name, imageURL, artist, index}) => {
 
+
+const PlaylistName = ({name, playlistId})=>{
+
+  return(
+    <div className=' hover:bg-slate-600'>
+      <h2>{name}</h2>
+    </div>
+  )
+}
+
+
+const SongComponent = ({name, imageURL, artist, index, songItem}) => {
   const {state, dispatch} = useContext(StateContext);
-  const {songIndex, isSongPlaying} = state;
+  const {songIndex, isSongPlaying, playList} = state;
+  let userId = state?.user?.user._id;
 
   const handleToPlayer = () =>{
     if(!isSongPlaying){
@@ -17,18 +30,63 @@ const SongComponent = ({name, imageURL, artist, index}) => {
       dispatch({type: actionType.SET_SONG_INDEX, songIndex: index});
     }
   }
-  
+  const [activeMenu, setActiveMenu] = useState(false);
+  const [playlistId, setPlaylistId] = useState('');
 
+  const handleMenu = (e)=>{
+    e.preventDefault();
+    activeMenu? setActiveMenu(false) : setActiveMenu(true)
+  }
+  
+  const addToPlaylist = (songItem, element)=>{
+    setPlaylistId(element._id);
+
+    let songData = {
+      playlistId: playlistId,
+      userId: userId,
+      ...songItem
+    }
+    addSongItemToPlaylist(songData).then((result)=>{
+      
+    }).catch((err)=>console.log(err));
+  }
+
+console.log(playlistId)
   return (
-    <div className='h-56 w-48 m-4 rounded-lg bg-slate-800' onClick={handleToPlayer}>
+    <div  className='h-56 w-48 m-4 rounded-lg bg-slate-800 relative' 
+          onClick={handleToPlayer}
+          onContextMenu={(e)=>handleMenu(e)} 
+          onBlur={(e)=>setActiveMenu(false)}
+          >
+
+
         <div className='h-[80%] w-full rounded-md p-1'>
             <img src={imageURL} className=' h-full w-full rounded-md' />
         </div>
+
+
+{/* -----------------------PLAY LIST ---------------------------- */}
+        <div className={`absolute ${activeMenu? "h-28": "h-0"} transition-all ease-in duration-200 w-full overflow-hidden bg-red-500 rounded-md`} >
+          <h2 className='bg-slate-500'>Add To Playlist</h2>
+          {playList.map((elm)=>{
+            return(
+              <div onClick={()=>addToPlaylist(songItem, elm)} key={elm._id} >
+                <PlaylistName name={elm.name} playlistId = {elm._id}  />
+              </div>
+
+            )
+          })}
+        </div>
+{/* -----------------------PLAY LIST ---------------------------- */}
+
+
+
         <h2>{`${name.length > 23 ? name.slice(0, 23)+"..." : name} `}</h2>
         <h2 className='text-sm text-slate-400'>{artist}</h2>
         <motion.div whileHover={{scale: 1.1}} className='relative h-fit w-fit border-2 border-black bottom-[6rem] bg-black rounded-full left-[73%]'>
             <BsFillPlayCircleFill className=' h-10 w-10 text-red-500  rounded-full' />
         </motion.div>
+
     </div>
   )
 }

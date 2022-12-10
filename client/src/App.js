@@ -38,9 +38,10 @@ function App() {
       }
     });
     navigate("/home");
+
+
   }, []);
   
-
 
   return (
     <div className="App bg-slate-900 h-screen text-slate-300 ">
