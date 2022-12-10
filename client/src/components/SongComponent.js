@@ -7,10 +7,26 @@ import { addSongItemToPlaylist } from '../api/api'
 
 
 
-const PlaylistName = ({name, playlistId})=>{
+const PlaylistName = ({name, songItem, playlistId, userId})=>{
+
+  const [playlistID, setPlaylistID] = useState('');
+
+  const addToPlaylist = (playlistId)=>{
+    setPlaylistID(playlistId);
+
+    let songData = {
+      playlistId: playlistID,
+      userId: userId,
+      ...songItem
+    }
+    if(playlistID.length !==0){
+      addSongItemToPlaylist(songData).then((res)=>{});
+      console.log(songData)
+    }
+  }
 
   return(
-    <div className=' hover:bg-slate-600'>
+    <div className=' hover:bg-slate-600' onClick={()=>addToPlaylist(playlistId)}>
       <h2>{name}</h2>
     </div>
   )
@@ -38,20 +54,8 @@ const SongComponent = ({name, imageURL, artist, index, songItem}) => {
     activeMenu? setActiveMenu(false) : setActiveMenu(true)
   }
   
-  const addToPlaylist = (songItem, element)=>{
-    setPlaylistId(element._id);
 
-    let songData = {
-      playlistId: playlistId,
-      userId: userId,
-      ...songItem
-    }
-    addSongItemToPlaylist(songData).then((result)=>{
-      
-    }).catch((err)=>console.log(err));
-  }
 
-console.log(playlistId)
   return (
     <div  className='h-56 w-48 m-4 rounded-lg bg-slate-800 relative' 
           onClick={handleToPlayer}
@@ -70,10 +74,9 @@ console.log(playlistId)
           <h2 className='bg-slate-500'>Add To Playlist</h2>
           {playList.map((elm)=>{
             return(
-              <div onClick={()=>addToPlaylist(songItem, elm)} key={elm._id} >
-                <PlaylistName name={elm.name} playlistId = {elm._id}  />
+              <div  key={elm._id} >
+                <PlaylistName name={elm.name} playlistId = {elm._id} songItem={songItem} userId={userId}  />
               </div>
-
             )
           })}
         </div>
