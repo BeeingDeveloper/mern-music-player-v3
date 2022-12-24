@@ -23,9 +23,12 @@ app.use(express.json());
 
 //DATABSE CONNECTION-------------------------------------------------------------
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
-const connection = mongoose.connection;
-connection.once("open", ()=>{
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
+
+// const connection = mongoose.connection;
+
+mongoose.connection.once("open", ()=>{
     console.log(`Connected to MongoDB Databse...`);
 })
 //-------------------------------------------------------------------------------
@@ -52,8 +55,12 @@ app.use('/api/users/', userRouter);
 const playlistRouter = require('./routes/playlistRouter');
 app.use('/api/playlist', playlistRouter);
 
-const playlistItemRouter = require('./routes/playlistItemRouter');
-app.use('/api/playlistItem', playlistItemRouter);
+// const playlistItemRouter = require('./routes/playlistItemRouter');
+// app.use('/api/playlistItem', playlistItemRouter);
+
+
+
+
 
 //START SERVER-------------------------------------------------------------------
 app.listen(port, ()=>{

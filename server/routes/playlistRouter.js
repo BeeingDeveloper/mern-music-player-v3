@@ -6,6 +6,7 @@ router.post('/create', async(req, res)=>{
     const newPlaylist = playlist({
         name:  req.body.name,
         userId: req.body.userId,
+        songItem: req.body.songItem
     });
 
     try {
@@ -34,10 +35,22 @@ router.get('/get-playlists', async(req, res)=>{
 router.put('/update/:id', async(req, res)=>{
 
     const playlistId = {_id: req.params.id};
+    
+    const updatedElm = playlist.songItem.push(playlistId);
+    
+    const updatedPlaylist = {
+        name: req.body.name,
+        userId: req.body.userId,
+        songItem: updatedElm
+    }
 
-    // const updatedData = {
+    try {
+        const updatedPlaylist = await playlist.findByIdAndUpdate(_id, {updatedPlaylist});
 
-    // }
+        return res.status(200).send({success: true, data: updatedPlaylist});
+    } catch (error) {
+        return res.status(400).send({success: false, msg: "INTERNAL SERVER ERROR"});
+    }
 })
 
 module.exports = router;

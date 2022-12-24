@@ -15,19 +15,15 @@ const PlaylistName = ({name, songItem, playlistId, userId})=>{
     setPlaylistID(playlistId);
 
     let songData = {
-      playlistId: playlistID,
-      userId: userId,
-      ...songItem
+      // playlistId: 
     }
-    if(playlistID.length !==0){
-      addSongItemToPlaylist(songData).then((res)=>{});
-      console.log(songData)
-    }
+
   }
 
+
   return(
-    <div className=' hover:bg-slate-600' onClick={()=>addToPlaylist(playlistId)}>
-      <h2>{name}</h2>
+    <div className=' hover:bg-slate-600' onClick={()=>addToPlaylist(playlistId)} >
+      <h2 className='h-6'>{name}</h2>
     </div>
   )
 }
@@ -36,6 +32,7 @@ const PlaylistName = ({name, songItem, playlistId, userId})=>{
 const SongComponent = ({name, imageURL, artist, index, songItem}) => {
   const {state, dispatch} = useContext(StateContext);
   const {songIndex, isSongPlaying, playList} = state;
+  
   let userId = state?.user?.user._id;
 
   const handleToPlayer = () =>{
@@ -55,7 +52,7 @@ const SongComponent = ({name, imageURL, artist, index, songItem}) => {
   }
   
 
-
+  
   return (
     <div  className='h-56 w-48 m-4 rounded-lg bg-slate-800 relative' 
           onClick={handleToPlayer}
@@ -70,9 +67,9 @@ const SongComponent = ({name, imageURL, artist, index, songItem}) => {
 
 
 {/* -----------------------PLAY LIST ---------------------------- */}
-        <div className={`absolute ${activeMenu? "h-28": "h-0"} transition-all ease-in duration-200 w-full overflow-hidden bg-red-500 rounded-md`} >
+        <div className={`absolute ${activeMenu? "h-20": "h-0"} transition-all ease-in duration-200 w-full overflow-hidden bg-slate-800 rounded-md`} >
           <h2 className='bg-slate-500'>Add To Playlist</h2>
-          {playList.map((elm)=>{
+          {playList?.map((elm)=>{
             return(
               <div  key={elm._id} >
                 <PlaylistName name={elm.name} playlistId = {elm._id} songItem={songItem} userId={userId}  />

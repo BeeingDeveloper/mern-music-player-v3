@@ -13,7 +13,7 @@ export const actionType = {
     SET_IS_SONG_PLAYING: "SET_IS_SONG_PLAYING",
     SET_MINI_PLAYER: "SET_MINI_PLAYER",
     SET_SONG_INDEX: "SET_SONG_INDEX",
-    SET_NEW_PLAYLIST: "SET_NEW_PLAYLIST"
+    SET_ALL_PLAYLIST: "SET_ALL_PLAYLIST"
 } 
 
 
@@ -39,7 +39,7 @@ export const reducer =(state, action)=>{
 
         case actionType.SET_SONG_INDEX:
             return {...state, songIndex: action.songIndex};
-        case actionType.SET_NEW_PLAYLIST:
+        case actionType.SET_ALL_PLAYLIST:
             return {...state, playList: action.playList};
         default:
             return state;
