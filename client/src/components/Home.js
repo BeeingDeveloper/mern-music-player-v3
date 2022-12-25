@@ -6,8 +6,34 @@ import './style.css'
 import {BsPlusSquareFill} from 'react-icons/bs'
 import { createNewPlaylist, fetchAllPlaylist, fetchAllSongs } from '../api/api';
 
-const Home = () => {
 
+const PlaylistSongItem =({songItem})=>{
+
+
+  return(
+    <>
+    {
+      songItem.map((elm, i)=>{
+        return (
+          <>
+            	{/* <marquee loop={-1} >
+            			{elm.name}
+            	</marquee> */}
+            <div className='py-2 w-full' key={i}>
+              {elm.name.length >20?`${elm.name.slice(0, 24)} . . .` : `${elm.name}`}
+            </div>
+          </>
+        )
+      })
+    }
+    </>
+  )
+}
+
+
+
+
+const Home = () => {
   
   const {state, dispatch} = useContext(StateContext);
   const {allSongs, user, playList} = state;
@@ -21,9 +47,14 @@ const Home = () => {
 
     fetchAllPlaylist().then((res)=>{
       dispatch({type: actionType.SET_ALL_PLAYLIST, playList: res.data});
+      console.log(playList)
+
     });
+
   }, []);
   
+
+
   const [playlistName, setPlaylistName] = useState("");
 
   const createPlaylist =(playlistName, id)=>{
@@ -34,7 +65,7 @@ const Home = () => {
     createNewPlaylist(data).then((res)=>{
       fetchAllPlaylist().then((res)=>{
         console.log(res.data)
-        dispatch({type: actionType.SET_ALL_PLAYLIST, playList: res.data})
+        dispatch({type: actionType.SET_ALL_PLAYLIST, playList: res.data});
       })
     });
   }
@@ -50,12 +81,27 @@ const Home = () => {
             </div>
           </div>
 
-          <div className='flex flex-col h-auto m-auto rounded-md bg-slate-700 w-[90%] text-left'>
+          <div className='flex flex-col h-auto m-auto rounded-md bg-slate-900 w-[90%] text-left'>
+            <>
             {
-              playList?.map((song, i)=>{
-                return <h2 key={i} className='pl-4 h-8'>{song.name}</h2>
+              playList?.map((elm, i)=>{
+                return (
+                  <>
+                    <h2 key={i} className='pl-4 h-auto text-red-500'>{elm.name}</h2>
+                    <hr />
+                    <div className='h-auto pl-4'>{<PlaylistSongItem songItem={elm.songItem} />}</div>
+                  </>
+                )
               })
             }
+            <div className='w-full' >
+              {
+                playList?.songItem?.map((elm)=>{
+                  return <h2>{elm.name}</h2>
+                })
+              }
+            </div>
+            </>
           </div>
         </div>
 

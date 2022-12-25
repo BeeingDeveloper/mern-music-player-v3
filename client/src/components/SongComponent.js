@@ -3,26 +3,28 @@ import {BsFillPlayCircleFill} from 'react-icons/bs'
 import {motion} from 'framer-motion'
 import { StateContext } from '../context/StateProvider'
 import { actionType } from '../context/reducer'
-import { addSongItemToPlaylist } from '../api/api'
+import { addSongItemToPlaylist, fetchAllPlaylist } from '../api/api'
 
 
 
 const PlaylistName = ({name, songItem, playlistId, userId})=>{
+  const {state, dispatch} = useContext(StateContext);
+  const {songIndex, isSongPlaying, playList} = state;
+
 
   const [playlistID, setPlaylistID] = useState('');
 
-  const addToPlaylist = (playlistId)=>{
-    setPlaylistID(playlistId);
-
-    let songData = {
-      // playlistId: 
-    }
-
+  const addToPlaylist = ()=>{
+      addSongItemToPlaylist(songItem, playlistId).then((addedSong)=>{
+        fetchAllPlaylist().then((res)=>{
+          dispatch({type: actionType.SET_ALL_PLAYLIST, playList: res.data});
+          
+        });
+      })
   }
-
-
+  
   return(
-    <div className=' hover:bg-slate-600' onClick={()=>addToPlaylist(playlistId)} >
+    <div className=' hover:bg-slate-600' onClick={()=>addToPlaylist()} >
       <h2 className='h-6'>{name}</h2>
     </div>
   )
@@ -35,7 +37,7 @@ const SongComponent = ({name, imageURL, artist, index, songItem}) => {
   
   let userId = state?.user?.user._id;
 
-  const handleToPlayer = () =>{
+  const handlePlayer = () =>{
     if(!isSongPlaying){
       dispatch({type: actionType.SET_IS_SONG_PLAYING, isSongPlaying: true});
     }
@@ -50,12 +52,17 @@ const SongComponent = ({name, imageURL, artist, index, songItem}) => {
     e.preventDefault();
     activeMenu? setActiveMenu(false) : setActiveMenu(true)
   }
+
+
+  const addSongItemToPlaylist=(songItem)=>{
+
+  }
   
 
   
   return (
     <div  className='h-56 w-48 m-4 rounded-lg bg-slate-800 relative' 
-          onClick={handleToPlayer}
+          onClick={handlePlayer}
           onContextMenu={(e)=>handleMenu(e)} 
           onBlur={(e)=>setActiveMenu(false)}
           >
@@ -67,7 +74,7 @@ const SongComponent = ({name, imageURL, artist, index, songItem}) => {
 
 
 {/* -----------------------PLAY LIST ---------------------------- */}
-        <div className={`absolute ${activeMenu? "h-20": "h-0"} transition-all ease-in duration-200 w-full overflow-hidden bg-slate-800 rounded-md`} >
+        <div className={`absolute ${activeMenu? "h-40": "h-0"} transition-all ease-in duration-200 w-full overflow-hidden bg-slate-800 rounded-md`} >
           <h2 className='bg-slate-500'>Add To Playlist</h2>
           {playList?.map((elm)=>{
             return(

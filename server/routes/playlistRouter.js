@@ -22,7 +22,7 @@ router.post('/create', async(req, res)=>{
 
 
 router.get('/get-playlists', async(req, res)=>{
-    const playlists = await playlist.find();
+    const playlists = await playlist.find().populate('songItem');
     try {
         return res.status(200).send({success: true, data: playlists});
     } catch (error) {
@@ -34,18 +34,18 @@ router.get('/get-playlists', async(req, res)=>{
 
 router.put('/update/:id', async(req, res)=>{
 
-    const playlistId = {_id: req.params.id};
+    // const playlistId = {_id: req.params.id};
     
-    const updatedElm = playlist.songItem.push(playlistId);
+    // const updatedElm = playlist.songItem.push(playlistId);
     
-    const updatedPlaylist = {
-        name: req.body.name,
-        userId: req.body.userId,
-        songItem: updatedElm
-    }
+    // const updatedPlaylist = {
+    //     name: req.body.name,
+    //     userId: req.body.userId,
+    //     songItem: updatedElm
+    // }
 
     try {
-        const updatedPlaylist = await playlist.findByIdAndUpdate(_id, {updatedPlaylist});
+        const updatedPlaylist = await playlist.findByIdAndUpdate(req.params.id, {'$push':{'songItem':req.body.songItem}});
 
         return res.status(200).send({success: true, data: updatedPlaylist});
     } catch (error) {

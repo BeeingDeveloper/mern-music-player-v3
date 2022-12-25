@@ -153,6 +153,17 @@ export const fetchAllPlaylist = async()=>{
     }
 }
 
+export const addSongItemToPlaylist= async(songItem, playlistId)=>{
+    try {
+        const res = await axios.put(`${baseURL}api/playlist/update/${playlistId}`, {songItem});
+        return await res.data;
+    } catch (error) {
+        return null;
+    }
+}
+
+
+
 // export const addSongItemToPlaylist = async(data)=>{
 //     try {
 //         const res = await axios.post(`${baseURL}api/playlistItem/add-to-playlist`, {...data});
@@ -161,3 +172,4 @@ export const fetchAllPlaylist = async()=>{
 //         return null;
 //     }
 // }
+
