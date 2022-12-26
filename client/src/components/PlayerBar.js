@@ -13,7 +13,7 @@ const PlayerBar = () => {
   let songObj = allSongs?.[songIndex];
 
   const onPlayNext = ()=>{
-    if(songIndex > allSongs.length){
+    if(songIndex === allSongs.length-1){
       dispatch({type: actionType.SET_SONG_INDEX, songIndex: 0});
     }else{
       dispatch({type: actionType.SET_SONG_INDEX, songIndex: songIndex+1})
@@ -47,7 +47,8 @@ const PlayerBar = () => {
               showSkipControls={true}
               onClickNext={onPlayNext}
               onClickPrevious={onPlayPrevious}
-               /> 
+              mse
+              /> 
           </div>
         </div>
     </div>

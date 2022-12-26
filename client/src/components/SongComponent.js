@@ -8,11 +8,9 @@ import { addSongItemToPlaylist, fetchAllPlaylist } from '../api/api'
 
 
 const PlaylistName = ({name, songItem, playlistId, userId})=>{
-  const {state, dispatch} = useContext(StateContext);
-  const {songIndex, isSongPlaying, playList} = state;
+  const { dispatch} = useContext(StateContext);
 
 
-  const [playlistID, setPlaylistID] = useState('');
 
   const addToPlaylist = ()=>{
       addSongItemToPlaylist(songItem, playlistId).then((addedSong)=>{
@@ -46,7 +44,6 @@ const SongComponent = ({name, imageURL, artist, index, songItem}) => {
     }
   }
   const [activeMenu, setActiveMenu] = useState(false);
-  const [playlistId, setPlaylistId] = useState('');
 
   const handleMenu = (e)=>{
     e.preventDefault();
@@ -54,9 +51,6 @@ const SongComponent = ({name, imageURL, artist, index, songItem}) => {
   }
 
 
-  const addSongItemToPlaylist=(songItem)=>{
-
-  }
   
 
   
@@ -69,7 +63,7 @@ const SongComponent = ({name, imageURL, artist, index, songItem}) => {
 
 
         <div className='h-[80%] w-full rounded-md p-1'>
-            <img src={imageURL} className=' h-full w-full rounded-md' />
+            <img src={imageURL} alt='thumbnail' className=' h-full w-full rounded-md' />
         </div>
 
 
