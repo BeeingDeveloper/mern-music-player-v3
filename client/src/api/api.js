@@ -1,7 +1,7 @@
 import { async } from '@firebase/util';
 import axios from 'axios'
 
-const baseURL = 'http://localhost:5500/';
+const baseURL = 'https://mern-music-server.onrender.com/';
 
 export const validateUser = async(token)=>{
     try {
