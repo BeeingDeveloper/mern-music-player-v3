@@ -34,15 +34,7 @@ router.get('/get-playlists', async(req, res)=>{
 
 router.put('/update/:id', async(req, res)=>{
 
-    // const playlistId = {_id: req.params.id};
-    
-    // const updatedElm = playlist.songItem.push(playlistId);
-    
-    // const updatedPlaylist = {
-    //     name: req.body.name,
-    //     userId: req.body.userId,
-    //     songItem: updatedElm
-    // }
+
 
     try {
         const updatedPlaylist = await playlist.findByIdAndUpdate(req.params.id, {'$push':{'songItem':req.body.songItem}});

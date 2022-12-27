@@ -11,7 +11,7 @@ const port = process.env.PORT || 5500;
 
 
 // SETUP MIDDLEWARE--------------------------------------------------------------
-app.use(cors({origin: true}));
+app.use(cors());
 app.use(express.json());
 //-------------------------------------------------------------------------------
 

@@ -21,6 +21,9 @@ function App() {
   const [auth, setAuth] = useState(false || window.localStorage.getItem("auth")=== "true");
   const {state, dispatch} = useContext(StateContext);
 
+  // const [songList, setSongList] = useState([]);
+
+
 
   useEffect(() => {
     firebaseAuth.onAuthStateChanged((userData)=>{
@@ -39,10 +42,20 @@ function App() {
     });
     navigate("/home");
 
-
+    
+    // const fetchAPI = async ()=>{
+    //   fetch('https://ap-south-1.aws.data.mongodb-api.com/app/mern-stack-music-jwcip/endpoint/songlist')
+    //     .then((response) => response.json())
+    //     .then((json) => {
+    //       setSongList(json)
+    //     })
+    // }
+    // fetchAPI();
   }, []);
   
+  // console.log(songList)
 
+  
   return (
     <div className="App bg-slate-900 h-screen text-slate-300 ">
       <Navbar />
