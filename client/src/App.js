@@ -21,7 +21,7 @@ function App() {
   const [auth, setAuth] = useState(false || window.localStorage.getItem("auth")=== "true");
   const {state, dispatch} = useContext(StateContext);
 
-  // const [songList, setSongList] = useState([]);
+  const [songList, setSongList] = useState([]);
 
 
 
