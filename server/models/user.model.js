@@ -10,6 +10,7 @@ const userSchema = new Schema({
   email_verified: {type: String, required: true},
   role: {type: String, required: true},
   auth_time: {type: String, required: true},
+  // playlist: {type: String, required: true},
 },{
     timestamps: true
 });

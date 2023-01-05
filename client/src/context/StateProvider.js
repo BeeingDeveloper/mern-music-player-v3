@@ -1,11 +1,11 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useState } from 'react'
 import { createContext } from 'react'
 import {reducer} from './reducer'
 
 
 export const StateContext = createContext();
 const StateProvider = (props) => {
-
+  const [userID, setUserID] = useState(false);
 
     const initialState = {
         user: null,
@@ -43,7 +43,7 @@ const StateProvider = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
-    <StateContext.Provider value={{state, dispatch}}>
+    <StateContext.Provider value={{state, dispatch, userID, setUserID}}>
         {props.children}
     </StateContext.Provider>
   )

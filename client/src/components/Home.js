@@ -7,6 +7,9 @@ import {BsPlusSquareFill} from 'react-icons/bs'
 import { createNewPlaylist, fetchAllPlaylist, fetchAllSongs } from '../api/api';
 import {HiHome} from 'react-icons/hi'
 import { motion } from 'framer-motion';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../config/firebase.config';
+
 
 const PlaylistSongItem =({songItem})=>{
 
@@ -32,22 +35,15 @@ const PlaylistSongItem =({songItem})=>{
 
 
 const Home = () => {
-  
-  const {state, dispatch} = useContext(StateContext);
+  const [firebaseUser] = useAuthState(auth)
+
+  const {state, dispatch, userID, setUserID} = useContext(StateContext);
   const {allSongs, user, playList} = state;
-
-  useEffect(() => {
-    fetchAllSongs().then((res)=>{
-      dispatch({type: actionType.SET_ALL_SONGS, allSongs: res.data});
-    });
-
-    fetchAllPlaylist().then((res)=>{
-      dispatch({type: actionType.SET_ALL_PLAYLIST, playList: res.data});
-    });
-
-  }, []);
   
-  let id = user?.user._id;
+  let id = window.localStorage.getItem("userid");
+  console.log(userID)
+
+
   const [playlistName, setPlaylistName] = useState("");
   const [activePlaylist, setActivePlaylist] = useState(false);
   const [currentPlaylist, setCurrentPlaylist] = useState([]);
@@ -55,9 +51,11 @@ const Home = () => {
   const setPlaylist = (elm)=>{
       setActivePlaylist(true);
       setCurrentPlaylist(elm);
-      console.log(elm)
   }
 
+
+
+  //  CREATE NEW PLAYLIST--------------------------------------------------------------------------
   const createPlaylist =(playlistName, id)=>{
     let data = {
       name: playlistName,
@@ -69,6 +67,44 @@ const Home = () => {
       });
     });
   }
+  //------------------------------------------------------------------------------------------------
+
+
+
+
+  const fetchPlaylist=(id)=>{
+    console.log('hello', id)
+     fetchAllPlaylist(id).then((res)=>{
+      dispatch({type: actionType.SET_ALL_PLAYLIST, playList: res.data});
+    });
+  }
+
+
+
+
+
+  //  FETCH LATEST DATA ON COMPONENT LOADS----------------------------------------------------------
+  useEffect(() => {
+    fetchAllSongs().then((res)=>{
+      dispatch({type: actionType.SET_ALL_SONGS, allSongs: res.data});
+    });
+    
+    // if(window.localStorage.getItem('auth') === 'true'){
+    if(firebaseUser && id){
+      fetchPlaylist(id);
+    }
+
+    // }
+
+
+  }, [firebaseUser, id]);
+
+  // useEffect(()=>{
+  //   console.log(firebaseUser, id)
+  // },[firebaseUser, id])
+
+  //------------------------------------------------------------------------------------------------
+
 
 
   return (

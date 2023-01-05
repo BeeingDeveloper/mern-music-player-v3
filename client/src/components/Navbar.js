@@ -14,14 +14,16 @@ import {
   Button,
 } from '@chakra-ui/react'
 import Musics from '../pages/Musics'
+import { actionType } from '../context/reducer'
 
 const Navbar = () => {
 
   const [activeNav, setActiveNav] = useState("#");
   const navigate = useNavigate();
-  const {state} = useContext(StateContext);
-  const {user} = state;
-  
+  const {state, userID, setUserID, dispatch} = useContext(StateContext);
+  const {user, playList} = state;
+
+
   let name = user?.user?.name;
   let imageURL = user?.user?.imageURL;
 
@@ -29,7 +31,6 @@ const Navbar = () => {
   let profileIMG = imageURL ? imageURL : logo;
   let role = user?.user?.role;
   if(name) firstName = name.split(" ")[0];
-  // const [activePopup, setActivePopup] = useState(undefined);
 
 
   const headToHome =()=>{
@@ -41,6 +42,9 @@ const Navbar = () => {
     const auth = getAuth(app);
       auth.signOut().then(()=>{
         window.localStorage.setItem("auth" , "false");
+        window.localStorage.setItem("userid", "");
+        setUserID(false);
+        dispatch({type: actionType.SET_ALL_PLAYLIST, playList: null })
         navigate("/", {replace: true});
       }).catch((error)=>{
         navigate("/signin", {replace: true});

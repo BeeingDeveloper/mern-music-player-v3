@@ -19,10 +19,13 @@ router.post('/create', async(req, res)=>{
 
 
 
+//await playlist.find().populate('songItem');
 
+router.get('/get-playlists/:id', async(req, res)=>{
 
-router.get('/get-playlists', async(req, res)=>{
-    const playlists = await playlist.find().populate('songItem');
+    const userID = {_id: req.params.id};
+// {userId: userID} /:id
+    const playlists = await playlist.find({userId: userID}).populate('songItem');
     try {
         return res.status(200).send({success: true, data: playlists});
     } catch (error) {

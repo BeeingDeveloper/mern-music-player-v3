@@ -10,8 +10,8 @@ import { validateUser } from '../api/api'
 
 const SignIn = ({setAuth}) => {
   const navigate = useNavigate();
-  const {state, dispatch} = useContext(StateContext);
-  // const {user} = state;
+  const {state, dispatch, userID, setUserID} = useContext(StateContext);
+  const {user} = state;
   console.log(state)
 
 
@@ -30,7 +30,9 @@ const SignIn = ({setAuth}) => {
             userData.getIdToken().then((token)=>{
               validateUser(token).then((data)=>{
                 dispatch({type: actionType.SET_USER, user: data});
-                console.log(state)
+                window.localStorage.setItem("userid", data.user._id);
+                setUserID(true);
+                // console.log(userID, window.localStorage.getItem('userid'))
               })
             })
             navigate("/", {replace: true})
@@ -42,6 +44,7 @@ const SignIn = ({setAuth}) => {
         })
       }
     })
+
   }
 // ------------------------------------------------------------------------------------------------
 

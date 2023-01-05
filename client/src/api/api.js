@@ -1,7 +1,7 @@
 import { async } from '@firebase/util';
 import axios from 'axios'
 
-const baseURL = 'https://mern-music-server.onrender.com/';
+const baseURL = 'http://localhost:5500/';
 
 export const validateUser = async(token)=>{
     try {
@@ -144,9 +144,9 @@ export const createNewPlaylist = async(data)=>{
     }
 }
 
-export const fetchAllPlaylist = async()=>{
+export const fetchAllPlaylist = async(userID)=>{
     try {
-        const res = await axios.get(`${baseURL}api/playlist/get-playlists`);
+        const res = await axios.get(`${baseURL}api/playlist/get-playlists/${userID}`);
         return await res.data;
     } catch (error) {
         return null;
